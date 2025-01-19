@@ -10,5 +10,5 @@ Here is what data from the API for a single game looks like:
 knitr::include_graphics("C:/Users/james/OneDrive/Documents/MSA Program/Side Projects/API_Response.png")
 ```
 
-![](docs/API_Response.PNG)
+![](https://jamesfaber.github.io/Testing/docs/API_Response.PNG)
 
