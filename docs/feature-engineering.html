@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chess Analytics Project</title>
-  <meta name="description" content="Chess Analytics Project" />
+  <title>2 Feature Engineering | Chess Analytics Project</title>
+  <meta name="description" content="2 Feature Engineering | Chess Analytics Project" />
   <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chess Analytics Project" />
+  <meta property="og:title" content="2 Feature Engineering | Chess Analytics Project" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chess Analytics Project" />
+  <meta name="twitter:title" content="2 Feature Engineering | Chess Analytics Project" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="feature-engineering.html"/>
+<link rel="prev" href="index.html"/>
+<link rel="next" href="methodology.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -98,15 +98,15 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Chess Analytics Project</h1>
-<p class="author"><em>James Faber</em></p>
-<p class="date"><em>2025-01-19</em></p>
-</div>
-<div id="project-overview" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">1</span> Project Overview<a href="index.html#project-overview" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>As an avid chess player, I’m always eager to explore new strategies and refine my skills. I play mainly on chess.com, which is the most popular chess website in the world. I usually play games against human opponents, and I like to play with the settings that each player has 10 minutes to make all their moves.</p>
-<p>My goal for this project was to determine if I could find any insights from other players’ games that could help me win more often. To do this, I needed to get a large sample of completed chess.com games, engineer features that could potentially explain why someone won their game, and lastly run a model to determine which features were significant and interpret them.</p>
+<div id="feature-engineering" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">2</span> Feature Engineering<a href="feature-engineering.html#feature-engineering" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Now that we have pre-processed the sample, several features were engineered with the hope that at least one of them would be correlated to winning the game. For these features, I focused exclusively on the first 12 turns of the game, known as the “opening”.</p>
+<p>The opening phase of the game is more structured than the later phase, as most players will have a strategy that they take a few turns to set up. There are common opening chess principles that can be evaluated, such as castling your king and controlling the center of the board.</p>
+<p>Example data table with several features:</p>
+<p><img src="https://jamesfaber.github.io/Testing/Example_Features.PNG" /></p>
+<p>The evaluation feature represents the Stockfish chess engine evaluation of the board position at turn 12. To obtain this, the movement list for each game was provided to the engine within a loop so that it could “play the game” to determine the position at turn 12.</p>
+<p><img src="https://jamesfaber.github.io/Testing/ChessGif.gif" /></p>
+<p>A full list of created features can be viewed in the data dictionary of the file “Chess_Game_Data_Final.xlsx”.</p>
 
 </div>
             </section>
@@ -114,8 +114,8 @@
           </div>
         </div>
       </div>
-
-<a href="feature-engineering.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="methodology.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -146,7 +146,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jamesfaber/Testing/edit/main/index.Rmd",
+"link": "https://github.com/jamesfaber/Testing/edit/main/Feature_Engineering.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -154,7 +154,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/jamesfaber/Testing/blob/main/index.Rmd",
+"link": "https://github.com/jamesfaber/Testing/blob/main/Feature_Engineering.Rmd",
 "text": null
 },
 "download": null,
