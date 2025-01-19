@@ -31,7 +31,7 @@
   
   
 
-<link rel="next" href="methodology.html"/>
+<link rel="next" href="methodology-1.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -76,8 +76,11 @@
 <li><a href="./">SHORT TITLE HERE</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Project Overview</a></li>
-<li class="chapter" data-level="2" data-path="methodology.html"><a href="methodology.html"><i class="fa fa-check"></i><b>2</b> Methodology</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Project Overview</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#methodology"><i class="fa fa-check"></i><b>1.1</b> Methodology</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="methodology-1.html"><a href="methodology-1.html"><i class="fa fa-check"></i><b>2</b> Methodology</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -103,10 +106,17 @@
 <p class="date"><em>2025-01-19</em></p>
 </div>
 <div id="project-overview" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">Chapter 1</span> Project Overview<a href="index.html#project-overview" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<h1><span class="header-section-number">1</span> Project Overview<a href="index.html#project-overview" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>As an avid chess player, I’m always eager to explore new strategies and refine my skills. I play mainly on chess.com, which is the most popular chess website in the world. I usually play games against human opponents, and I like to play with the settings that each player has 10 minutes to make all their moves.</p>
 <p>My goal for this project was to determine if I could find any insights from other players’ games that could help me win more often. To do this, I needed to get a large sample of completed chess.com games, engineer features that could potentially explain why someone won their game, and lastly run a model to determine which features were significant and interpret them.</p>
+<div id="methodology" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Methodology<a href="index.html#methodology" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Using the chess.com API, I was able to extract a random sample of 5,800 completed 10-minute chess games from players around the world at my skill level (1000).</p>
+<p>No player was represented more than one time, and no games that ended as a draw was kept because I wanted to analyze games that ended decisively.</p>
+<p>Here is what data from the API for a single game looks like:</p>
+<p><img src="C:/Users/james/OneDrive/Documents/MSA%20Program/Side%20Projects/API_Response.png" /></p>
 
+</div>
 </div>
             </section>
 
@@ -114,7 +124,7 @@
         </div>
       </div>
 
-<a href="methodology.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="methodology-1.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
