@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chess Analytics Project</title>
-  <meta name="description" content="Chess Analytics Project" />
+  <title>2 Methodology | Chess Analytics Project</title>
+  <meta name="description" content="2 Methodology | Chess Analytics Project" />
   <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chess Analytics Project" />
+  <meta property="og:title" content="2 Methodology | Chess Analytics Project" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chess Analytics Project" />
+  <meta name="twitter:title" content="2 Methodology | Chess Analytics Project" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="index.html"/>
 
-<link rel="next" href="methodology.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -97,15 +97,12 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Chess Analytics Project</h1>
-<p class="author"><em>James Faber</em></p>
-<p class="date"><em>2025-01-19</em></p>
-</div>
-<div id="project-overview" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">1</span> Project Overview<a href="index.html#project-overview" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>As an avid chess player, I’m always eager to explore new strategies and refine my skills. I play mainly on chess.com, which is the most popular chess website in the world. I usually play games against human opponents, and I like to play with the settings that each player has 10 minutes to make all their moves.</p>
-<p>My goal for this project was to determine if I could find any insights from other players’ games that could help me win more often. To do this, I needed to get a large sample of completed chess.com games, engineer features that could potentially explain why someone won their game, and lastly run a model to determine which features were significant and interpret them.</p>
+<div id="methodology" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">2</span> Methodology<a href="methodology.html#methodology" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Using the chess.com API, I was able to extract a random sample of 5,800 completed 10-minute chess games from players around the world at my skill level (1000).</p>
+<p>No player was represented more than one time, and no games that ended as a draw was kept because I wanted to analyze games that ended decisively.</p>
+<p>Here is what data from the API for a single game looks like:</p>
+<p><img src="C:/Users/james/OneDrive/Documents/MSA%20Program/Side%20Projects/API_Response.png" /></p>
 
 </div>
             </section>
@@ -113,8 +110,8 @@
           </div>
         </div>
       </div>
+<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="methodology.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -145,7 +142,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jamesfaber/Testing/edit/main/index.Rmd",
+"link": "https://github.com/jamesfaber/Testing/edit/main/Methodology.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -153,7 +150,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/jamesfaber/Testing/blob/main/index.Rmd",
+"link": "https://github.com/jamesfaber/Testing/blob/main/Methodology.Rmd",
 "text": null
 },
 "download": null,
