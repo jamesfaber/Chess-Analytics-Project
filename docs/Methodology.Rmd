@@ -1,10 +1,18 @@
 # Methodology
 
-Using the chess.com API, I was able to extract a random sample of 5,800 completed 10-minute chess games from players around the world at my skill level (1000).
+Using the chess.com API, I was able to extract a random sample of 5,800 completed 10-minute chess games from players around the world. 
 
-No player was represented more than one time, and no games that ended as a draw was kept because I wanted to analyze games that ended decisively.
+Players were chosen if their skill level was within a range of 900-1100 rating points, as my skill level was 1000. No player was represented more than one time, and no games that ended as a draw were kept because I wanted to analyze games that ended decisively.
 
-Here is what data from the API for a single game looks like:
+
+Example response from the chess.com API for a single game:
 
 ![](https://jamesfaber.github.io/Testing/API_Response.PNG)
 
+
+As you can see, there is a large amount of information available for each chess game. Some data such as player rating is easily accessible, however the data for each move is stored in a text string, so Regular Expressions were used to extract this. The result is a list of each move in algebraic notation:
+
+![](https://jamesfaber.github.io/Testing/Move_List.PNG)
+
+
+This process was done for each of the 5,800 games in the sample. The code for this can be found in the file "Gathering Data & Feature Engineering.ipynb"

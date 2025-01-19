@@ -1,0 +1,18 @@
+# Feature Engineering
+
+Now that we have pre-processed the sample, several features were engineered with the hope that at least one of them would be correlated to winning the game. For these features, I focused exclusively on the first 12 turns of the game, known as the "opening". 
+
+The opening phase of the game is more structured than the later phase, as most players will have a strategy that they take a few turns to set up. There are common opening chess principles that can be evaluated, such as castling your king and controlling the center of the board. 
+
+Example data table with several features:
+
+![](https://jamesfaber.github.io/Testing/Example_Features.PNG)
+
+The evaluation feature represents the Stockfish chess engine evaluation of the board position at turn 12. To obtain this, the movement list for each game was provided to the engine within a loop so that it could "play the game" to determine the position at turn 12.
+
+![](https://jamesfaber.github.io/Testing/ChessGif.gif)
+
+
+
+A full list of created features can be viewed in the data dictionary of the file "Chess_Game_Data_Final.xlsx".
+
