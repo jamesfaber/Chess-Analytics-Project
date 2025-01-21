@@ -1,0 +1,424 @@
+---
+title: "Chess Game Analysis"
+author: "James Faber"
+date: "2025-01-08"
+site: bookdown::bookdown_site
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Importing Libraries
+
+```{r}
+library(readxl)
+library(mgcv)
+library(tidyverse)
+library(ggplot2)
+library(car)
+library(randomForest)
+library(xgboost)
+library(vcd)
+```
+
+
+
+# Importing chess game data
+
+This excel file was created in the program "Gathering Data & Feature Engineering.ipynb"
+
+```{r}
+data <- read_excel("C:\\Users\\james\\OneDrive\\Documents\\MSA Program\\Side Projects\\Chess_Game_Data_Final.xlsx")
+data <- as.data.frame(data)
+```
+
+
+
+# Converting categorical variables to factors
+
+```{r}
+data$Piece_Color <- as.factor(data$Piece_Color)
+data$Opening <- as.factor(data$Opening)
+data$Castle_Side <- as.factor(data$Castle_Side)
+```
+
+
+
+# Variable distributions
+
+```{r}
+table(data$Result_Binary)
+```
+
+```{r}
+table(data$Piece_Color)
+```
+
+```{r}
+table(data$Castle_Present)
+```
+
+```{r}
+table(data$Castle_Side) 
+```
+
+```{r}
+table(data$Queen_Moved) 
+```
+
+```{r}
+table(data$Rook_Moved)
+```
+
+```{r}
+ggplot(data, aes(x = Rating_Difference)) +
+  geom_histogram(binwidth = 10, fill = "#69923e", color = "#4b4847") +
+  labs(title = "Rating Difference", x = "Rating Difference", y = "Frequency") +
+  theme_minimal()
+```
+
+```{r}
+ggplot(data, aes(x = Elapsed_Time)) +
+  geom_histogram(binwidth = 10, fill = "#69923e", color = "#4b4847") +
+  labs(title = "Elapsed time at move 12", x = "Elapsed Time", y = "Frequency") +
+  theme_minimal()
+```
+
+```{r}
+ggplot(data, aes(x = Evaluation)) +
+  geom_histogram(binwidth = 50, fill = "#69923e", color = "#4b4847") +
+  labs(title = "Evaluation at move 12", x = "Evaluation", y = "Frequency") +
+  theme_minimal()
+```
+
+```{r}
+ggplot(data, aes(x = Minor_Pieces_Developed)) +
+  geom_bar(fill = "#69923e", color = "#4b4847") +
+  labs(title = "Minor Pieces Developed", x = "Minor Pieces Developed", y = "Frequency") +
+  theme_minimal()
+```
+
+```{r}
+ggplot(data, aes(x = Aggressiveness)) +
+  geom_histogram(binwidth = 2, fill = "#69923e", color = "#4b4847") +
+  labs(title = "Aggressiveness", x = "Aggressiveness", y = "Frequency") +
+  theme_minimal()
+```
+
+```{r}
+ggplot(data, aes(x = Center_Moves)) +
+  geom_bar(fill = "#69923e", color = "#4b4847") +
+  labs(title = "Center Moves", x = "Center Moves", y = "Frequency") +
+  theme_minimal() +
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 10))
+```
+
+
+
+# Identifying categorical variables that have perfect association
+
+```{r}
+table_data <- table(data$Piece_Color, data$Opening)
+cramers_v <- assocstats(table_data)$cramer
+cramers_v  
+
+# Can't include Piece_Color and Opening in the same model
+```
+
+```{r}
+table_data <- table(data$Castle_Present, data$Castle_Side)
+cramers_v <- assocstats(table_data)$cramer
+cramers_v  
+
+# Can't include Castle_Present and Castle_Side in the same model
+```
+
+
+
+# Checking if the Opening variable is significant with an initial Logistic Regression model
+
+```{r}
+# Piece_Color variable not included since it is perfectly associated with Opening variable
+test.model <- glm(Result_Binary ~ Rating_Difference +
+                       Elapsed_Time  +
+                       Evaluation + 
+                       Castle_Present +
+                       Queen_Moved + 
+                       Rook_Moved + 
+                       Minor_Pieces_Developed +
+                       Aggressiveness + 
+                       Center_Moves +
+                       Opening, 
+                     data = data, family = binomial(link = "logit"))
+car::Anova(test.model, test = 'LR', type = 'III') 
+
+# Opening is not significant when controlling for other variables 
+```
+
+
+
+# Calculating Opening win percentages for potential insights since Openings won't be included in modeling
+
+```{r}
+openings <- data %>% select(Result_Binary, Opening)
+
+# Calculating win percentages by opening and ranking them
+win_percentage_table <- openings %>% group_by(Opening) %>%                          
+    summarise(
+      Wins = sum(Result_Binary),                       
+      Games = n(),                               
+      Win_Percentage = round(((Wins / Games) * 100), 1)       
+    ) %>%
+    arrange(desc(Win_Percentage))   
+
+win_percentage_table <- as.data.frame(win_percentage_table)
+
+# Removing openings with less than 50 data points and N/A values
+df_filtered <- win_percentage_table %>% filter(Games >= 50 & Opening != "White - N/A" & Opening != "Black - N/A")
+
+# Looking at White and Black openings separately
+df_white <- df_filtered %>%
+  filter(grepl("^White - ", Opening))
+df_black <- df_filtered %>%
+  filter(grepl("^Black - ", Opening))
+print(df_white) 
+print(df_black)  
+```
+
+
+
+# Creating Full Logistic Regression Model with variables I think could potentially explain wins
+
+```{r}
+full.model <- glm(Result_Binary ~ Rating_Difference +
+                     Piece_Color +
+                     Elapsed_Time  +
+                     Evaluation + 
+                     Castle_Present +
+                     Queen_Moved + 
+                     Rook_Moved + 
+                     Minor_Pieces_Developed +
+                     Aggressiveness + 
+                     Center_Moves, 
+                   data = data, family = binomial(link = "logit"))
+summary(full.model)
+```
+
+```{r}
+# Checking for multicollinearity
+
+vif(full.model)
+
+# No variables were correlated with each other
+```
+
+```{r}
+# Checking for influential outliers
+
+cooks_d <- cooks.distance(full.model)
+plot(cooks_d, type = "h", main = "Cook's Distance", xlab = "Observation", ylab = "Cook's Distance")
+abline(h = 4 / length(full.model$fitted.values), col = "red", lty = 2)
+
+# Observations with high influence were reviewed, and incorrect observations were removed
+# Many high influence points were retained as they are valid observations
+```
+
+```{r}
+# Comparing the full model to an empty model to check that at least one variable helps explain wins
+empty.model <- glm(Result_Binary ~ 1, 
+                     data = data, family = binomial(link = "logit"))
+
+anova(full.model, empty.model, test = 'LRT') 
+
+# Yes, the full model is useful at explaining wins compared to an empty model
+```
+
+
+
+# Creating Random Forest model to compare variable importance
+
+```{r}
+# adding a random variable for reference
+df <- as.data.frame(data)
+df$Result_Binary <- as.factor(data$Result_Binary)
+df$random_variable <- sample(1:10, 5815, replace = TRUE)
+
+# Full Random Forest model
+set.seed(12345)
+full.rf <- randomForest(Result_Binary ~ Rating_Difference +
+                     Piece_Color +
+                     Elapsed_Time  +
+                     Evaluation + 
+                     Castle_Present +
+                     Queen_Moved + 
+                     Rook_Moved + 
+                     Minor_Pieces_Developed +
+                     Aggressiveness + 
+                     Center_Moves +
+                     random_variable,
+                   data = df, ntree = 100, importance = TRUE)
+
+varImpPlot(full.rf, sort = TRUE, n.var = 11, main = "Top 11 - Variable Importance")
+```
+
+
+
+# Creating an XGBoost model to compare variable importance
+
+```{r}
+train_x <- model.matrix(Result_Binary ~ Rating_Difference +
+                          Piece_Color +
+                          Elapsed_Time  +
+                          Evaluation + 
+                          Castle_Present +
+                          Queen_Moved + 
+                          Rook_Moved + 
+                          Minor_Pieces_Developed +
+                          Aggressiveness + 
+                          Center_Moves +
+                          random_variable, data = df)[, -1]
+train_y <- df$Result_Binary
+
+set.seed(12345)
+full.xgb <- xgboost(data = train_x, label = train_y, subsample = 0.5, nrounds = 50)
+xgb.ggplot.importance(xgb.importance(feature_names = colnames(train_x), model = full.xgb))
+```
+
+
+
+# Creating Reduced Logistic Regression Model
+```{r}
+# Rating_Difference and Piece_Color were removed as predictor variables because the player has no control over them, and we want to find more actionable insights
+
+# Evaluation was also removed, as it's not very actionable to simply tell someone to "play better". Although it is somewhat useful to know that having a poor position during the opening phase of the game leads more often to losses.
+
+reduced.model <- glm(Result_Binary ~
+                      Elapsed_Time  +
+                      Castle_Present +
+                      Queen_Moved + 
+                      Rook_Moved + 
+                      Minor_Pieces_Developed +
+                      Aggressiveness + 
+                      Center_Moves, 
+                    data = data, family = binomial(link = "logit"))
+summary(reduced.model)
+```
+
+```{r}
+# Checking for multicollinearity
+
+vif(reduced.model)
+
+# No variables were correlated with each other
+```
+
+```{r}
+# Comparing the reduced model to an empty model to check that at least one variable helps explain wins
+anova(reduced.model, empty.model, test = 'LRT') 
+
+# Yes, the reduced model is useful at explaining wins compared to an empty model
+```
+
+
+
+# Creating Random Forest model to compare variable importance
+
+```{r}
+set.seed(12345)
+reduced.rf <- randomForest(Result_Binary ~ 
+                      Elapsed_Time  +
+                      Castle_Present +
+                      Queen_Moved + 
+                      Rook_Moved + 
+                      Minor_Pieces_Developed +
+                      Aggressiveness + 
+                      Center_Moves +
+                      random_variable,
+                   data = df, ntree = 100, importance = TRUE)
+
+varImpPlot(reduced.rf, sort = TRUE, n.var = 8, main = "Top 8 - Variable Importance")
+```
+
+
+
+# Creating an XGBoost model to compare variable importance
+
+```{r}
+train_x <- model.matrix(Result_Binary ~ 
+                          Elapsed_Time  +
+                          Castle_Present +
+                          Queen_Moved + 
+                          Rook_Moved + 
+                          Minor_Pieces_Developed +
+                          Aggressiveness + 
+                          Center_Moves +
+                          random_variable, data = df)[, -1]
+train_y <- df$Result_Binary
+
+set.seed(12345)
+reduced.xgb <- xgboost(data = train_x, label = train_y, subsample = 0.5, nrounds = 50)
+xgb.ggplot.importance(xgb.importance(feature_names = colnames(train_x), model = reduced.xgb))
+```
+
+
+
+# Making Final Model for interpretation of the chosen predictor variables
+
+```{r}
+# Elapsed Time and Aggressiveness were both significant variables and ranked highly in variable importance, so we will use these for our final model
+
+final.model <- glm(Result_Binary ~ Elapsed_Time + Aggressiveness, 
+                    data = data, family = binomial(link = "logit"))
+summary(final.model)
+
+```
+
+```{r}
+# Comparing the final model to an empty model to check that at least one variable helps explain wins
+anova(final.model, empty.model, test = 'LRT') 
+
+# Yes, the final model is useful at explaining wins compared to an empty model
+```
+
+```{r}
+# Checking Linearity assumption by comparing our final model to a GAM
+final.gam <- mgcv::gam(Result_Binary ~  s(Elapsed_Time) + s(Aggressiveness),
+                          data = data, family = binomial(link = 'logit'),
+                          method = 'REML')
+summary(final.gam) 
+
+# Both variables are still significant in the GAM
+
+anova(final.model, final.gam, test="LRT")
+
+# p-value of 0.06 is well above our alpha level of 0.001, so the Linearity assumption holds
+```
+
+
+
+# Calculating Final Odds Ratios 
+
+```{r}
+odds_ratios <- exp(coef(final.model))
+print(odds_ratios)
+
+# Every additional square you push your pieces down the board vertically in the first 12 turns is associated with a 3.0% increase in the odds of winning the game
+
+# Since Elapsed Time is measured in seconds, we convert the odds ratio to measure a 10 second unit increase
+adjusted_odds <- odds_ratios[2]^10
+print(1 - adjusted_odds)
+
+# Every additional 10 seconds you spend thinking about your moves by turn 12 is associated with a 2.3% decrease in the odds of winning the game
+
+```
+
+
+# Conclusion
+ 
+In summary, for chess games played with 10-minute time controls between two players whose skill levels range from 900 to 1100, it is not surprising that the skill level difference and position evaluation at move 12 were highly significant in explaining who won.
+
+However, when looking beyond those two predictors, we find that elapsed time at move 12 and aggressiveness were also significant when it comes to winning the game (and are also actionable!). My recommendation based on this analysis would be to play quicker at the beginning of your games, and try out some more aggressive strategies. 
+
+Lastly, although the Opening variable was not significant, I would also recommend trying your hand at the two openings that had the highest win percentages from this sample. For the white pieces that would be the Vienna Game opening, and for the black pieces it is the Modern Defense opening.
