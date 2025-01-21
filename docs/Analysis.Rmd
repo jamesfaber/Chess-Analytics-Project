@@ -6,10 +6,10 @@ To analyze the features and determine which ones significantly explained wins, I
 <h3>Full Model Output</h3>
 
 <br>
-<img src="https://jamesfaber.github.io/Testing/LogReg1.PNG" width="75%" style="display: block; margin: auto;">
+<img src="https://jamesfaber.github.io/Chess-Analytics-Project/LogReg1.PNG" width="75%" style="display: block; margin: auto;">
 <br>
 <br>
-<img src="https://jamesfaber.github.io/Testing/Feature Importance 1.PNG" width="100%" style="display: block; margin: auto;">
+<img src="https://jamesfaber.github.io/Chess-Analytics-Project/Feature Importance 1.PNG" width="100%" style="display: block; margin: auto;">
 <br>
 
 From this graph we can see that the two features which best explain wins are "Rating Difference" and "Evaluation". These features were also significant at the chosen alpha level of 0.001. Rating Difference is simply the numeric difference between the skill ratings of the two players in a game, and Evaluation is the position evaluation at move 12. Both of these findings make sense, however they are not very actionable insights, as the player has no control over who they play against, and it's not very helpful to simply tell someone to "play better".
@@ -21,10 +21,10 @@ From this graph we can see that the two features which best explain wins are "Ra
 To look beyond these findings, Rating Difference and Evaluation were removed as predictor variables to determine if there was any signal that was being masked by those features. The Logistic Regression and XGBoost models were rerun and produced the following output:
 
 <br>
-<img src="https://jamesfaber.github.io/Testing/LogReg2.PNG" width="75%" style="display: block; margin: auto;">
+<img src="https://jamesfaber.github.io/Chess-Analytics-Project/LogReg2.PNG" width="75%" style="display: block; margin: auto;">
 <br>
 <br>
-<img src="https://jamesfaber.github.io/Testing/Feature Importance 2.PNG" width="100%" style="display: block; margin: auto;">
+<img src="https://jamesfaber.github.io/Chess-Analytics-Project/Feature Importance 2.PNG" width="100%" style="display: block; margin: auto;">
 <br>
 
 From this graph we can see that the two features which best explain wins are "Elapsed Time" and "Aggressiveness". Elapsed Time is the total time in seconds that have passed from the start of the game until turn 12 for each player. Aggressiveness is the sum of the depth of how far the player pushed their pieces down the board. Again, these features were significant at our alpha level, and performed better than a random variable. These features are also actionable, as it is within a players control to take their turns faster or adopt a more aggressive strategy.

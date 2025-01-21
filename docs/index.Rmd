@@ -15,4 +15,4 @@ I play chess mainly on chess.com, which is the most popular chess website in the
 To avoid generalizing too much, I focused my analysis on games played between human opponents who are at or near my own skill level. I also only looked at "rapid games", where each player has 10 minutes to make all their moves. 
 
 <br>
-![](https://jamesfaber.github.io/Testing/chess2.PNG)
+![](https://jamesfaber.github.io/Chess-Analytics-Project/chess2.PNG)
