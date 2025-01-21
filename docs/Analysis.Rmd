@@ -1,0 +1,45 @@
+# Analysis
+
+To analyze the features and determine which ones significantly explained wins, I imported the final data set into R and ran a Logistic Regression model with all variables. Extreme outliers were identified and removed prior to running the model. In addition to Logistic Regression, an XGBoost model was run to visualize variable importance when compared to a random variable.
+
+<hr>
+<h3>Full Model Output</h3>
+
+<br>
+<img src="https://jamesfaber.github.io/Testing/LogReg1.PNG" width="75%" style="display: block; margin: auto;">
+<br>
+<br>
+<img src="https://jamesfaber.github.io/Testing/Feature Importance 1.PNG" width="100%" style="display: block; margin: auto;">
+<br>
+
+From this graph we can see that the two features which best explain wins are "Rating Difference" and "Evaluation". These features were also significant at the chosen alpha level of 0.001. Rating Difference is simply the numeric difference between the skill ratings of the two players in a game, and Evaluation is the position evaluation at move 12. Both of these findings make sense, however they are not very actionable insights, as the player has no control over who they play against, and it's not very helpful to simply tell someone to "play better".
+
+
+<hr>
+<h3>Identifying more actionable features</h3>
+
+To look beyond these findings, Rating Difference and Evaluation were removed as predictor variables to determine if there was any signal that was being masked by those features. The Logistic Regression and XGBoost models were rerun and produced the following output:
+
+<br>
+<img src="https://jamesfaber.github.io/Testing/LogReg2.PNG" width="75%" style="display: block; margin: auto;">
+<br>
+<br>
+<img src="https://jamesfaber.github.io/Testing/Feature Importance 2.PNG" width="100%" style="display: block; margin: auto;">
+<br>
+
+From this graph we can see that the two features which best explain wins are "Elapsed Time" and "Aggressiveness". Elapsed Time is the total time in seconds that have passed from the start of the game until turn 12 for each player. Aggressiveness is the sum of the depth of how far the player pushed their pieces down the board. Again, these features were significant at our alpha level, and performed better than a random variable. These features are also actionable, as it is within a players control to take their turns faster or adopt a more aggressive strategy.
+
+
+<hr>
+<h3>Final Model and Interpretation</h3>
+
+A final model was fit with just the two variables Elapsed Time and Aggressiveness. The model assumptions were verified, and odds ratios were calculated for interpretation. The odds ratio for Aggressiveness was 1.03, indicating that every additional square you push your pieces down the board vertically in the first 12 turns is associated with a 3.0% increase in the odds of winning the game.
+
+Conversely, the odds ratio for 10-second increments of Elapsed Time was 0.978, which indicates that every additional 10 seconds you spend thinking about your moves by turn 12 is associated with a 2.3% decrease in the odds of winning the game.
+
+<hr>
+<h3>Conclusion</h3>
+ 
+In summary, for chess games played with 10-minute time controls between two players whose skill levels range from 900 to 1100, it is not surprising that the skill level difference and position evaluation at move 12 were highly significant in explaining who won.
+
+However, when looking beyond those two predictors, we find that elapsed time at move 12 and aggressiveness were also significant when it comes to winning the game (and are also actionable!). My takeaways based on this analysis are to play quicker at the beginning of the game and try out some more aggressive strategies.

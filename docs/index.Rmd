@@ -8,8 +8,11 @@ site: bookdown::bookdown_site
 
 # Project Overview
 
-As an avid chess player, I’m always eager to explore new strategies and refine my skills. I play mainly on chess.com, which is the most popular chess website in the world. Usually, my games are against human opponents, and I like to play with the settings that each player has 10 minutes to make all their moves.
+As an avid chess player, I’m always eager to explore new strategies and refine my skills. One day while I was playing chess in between class at the Institute for Advanced Analytics, I realized that I could combine my love of the game with the statistical techniques I've learned to see if I could uncover hidden insights. 
 
-My goal for this project was to determine if I could find any insights from other players' games that could help me win more often. To do this, I needed to get a large sample of completed chess.com games, engineer features that could potentially explain why someone won their game, and lastly run a model to determine which features were significant and interpret them.
+I play chess mainly on chess.com, which is the most popular chess website in the world. Luckily, this website offers a public API which contains detailed information about every game it has ever hosted. My goal for this project was to determine if I could find any insights from other players' games that could help me win more often. To do this, I needed to collect a large sample of completed games, engineer features that could potentially explain why someone won their game, and run a model to determine which features were significant.
 
+To avoid generalizing too much, I focused my analysis on games played between human opponents who are at or near my own skill level. I also only looked at "rapid games", where each player has 10 minutes to make all their moves. 
+
+<br>
 ![](https://jamesfaber.github.io/Testing/chess2.PNG)

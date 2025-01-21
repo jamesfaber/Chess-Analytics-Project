@@ -1,20 +1,18 @@
 # Data Collection
 
-Using the chess.com API, I was able to extract a random sample of 5,800 completed 10-minute chess games from players around the world. 
-
-Players were chosen if their skill level was within a range of 900-1100 rating points, as my skill level was 1000. No player was represented more than one time, and no games that ended in a draw were kept because I wanted to analyze games that ended decisively.
+Using the chess.com API, I was able to extract a random sample of 5,800 completed 10-minute chess games from players around the world. Players were chosen if their skill level was within a range of 900 - 1100 rating points, as my skill level was 1000. No player was represented more than one time, and no games that ended in a draw were kept so that only games that ended decisively were analyzed.
 
 <hr>
 
-<h3>Example response from the chess.com API for a single game:</h3>
+<h3>Example response from the chess.com API for a single game</h3>
 
 ![](https://jamesfaber.github.io/Testing/API_Response2.PNG)
 
 
-As you can see, there is a large amount of information available for each chess game. Some data is easily accessible, however the data for each move is stored in a text string, so Regular Expressions were used to create a list of each move in algebraic notation. The code for this can be found in the file "Gathering Data & Feature Engineering.ipynb"
-
 <hr>
-<h3>Example Move List:</h3>
+<h3>Creating a Move List</h3>
+
+As you can see, there is a large amount of information available for each chess game. Some data is easily accessible, however the data for each move is stored in a text string, so Regular Expressions were used to create a list of each move in algebraic notation. The code for this can be found in the file "Gathering Data & Feature Engineering.ipynb". Below is a list of the first several moves from the same game:
 
 ![](https://jamesfaber.github.io/Testing/Move_List2.PNG)
 
