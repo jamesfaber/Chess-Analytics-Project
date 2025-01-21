@@ -1,18 +1,35 @@
 # Feature Engineering
 
-Now that we have pre-processed the sample, several features were engineered with the hope that at least one of them would be correlated to winning the game. For these features, I focused exclusively on the first 12 turns of the game, known as the "opening". 
+Now that we have pre-processed the sample dataset to collect basic game information, several features were engineered with the hope that at least one of them would be correlated to winning the game. For these features, I focused exclusively on the first 12 turns of the game, known as the "Opening". 
 
-The opening phase of the game is more structured than the later phase, as most players will have a strategy that they take a few turns to set up. There are common opening chess principles that can be evaluated, such as castling your king and controlling the center of the board. 
+The opening phase of a chess game is more structured than the later phase, as most players will have a strategy that they take a few turns to set up. There are common opening chess principles that can be evaluated, such as castling your king or controlling the center of the board. 
 
-Example data table with several features:
+Using a series of custom python functions, I created 10 unique features for each game. I will highlight a few of them here, and the full list can be viewed in the data dictionary of the file "Chess_Game_Data_Final.xlsx".
+  
 
-![](https://jamesfaber.github.io/Testing/Example_Features.PNG)
+<hr>
+<h3>Early Queen Move</h3>
 
-The evaluation feature represents the Stockfish chess engine evaluation of the board position at turn 12. To obtain this, the movement list for each game was provided to the engine within a loop so that it could "play the game" to determine the position at turn 12.
+One chess principle that is instilled into new players is to avoid the temptation to move the queen in the opening. The theory states that moving the most valuable piece too early can expose it to attacks and waste time. To determine if this holds true with regard to winning the game at my skill level, I created a binary variable that relates if a player moved their queen by turn 12.
 
-![](https://jamesfaber.github.io/Testing/ChessGif.gif)
+<br>
+<img src="https://jamesfaber.github.io/Testing/Queens.PNG" width="40%" style="display: block; margin: auto;">
+<br>
+
+<hr>
+<h3>Total Center Moves at turn 12</h3>
+  
+Another chess principle is to control the center of the board. For this feature, I compared the move list of each game to a list of the 16 central squares on a chess board. If a move was in the center, it was added to the total count of center moves.
+
+<br>
+<img src="https://jamesfaber.github.io/Testing/Center Moves.PNG" width="40%" style="display: block; margin: auto;">
+<br>
 
 
+<hr>
+<h3>Position Evaluation at turn 12</h3>
 
-A full list of created features can be viewed in the data dictionary of the file "Chess_Game_Data_Final.xlsx".
+The Evaluation feature represents the Stockfish chess engine's evaluation of the board position at turn 12. To obtain this, the movement list for each game was provided to the engine within a loop so that it could "play the game" to determine the position at turn 12. Note that Stockfish is a separate program and had to be downloaded prior to analysis. 
 
+<br>
+<img src="https://jamesfaber.github.io/Testing/ChessGif.gif" width="75%" style="display: block; margin: auto;">

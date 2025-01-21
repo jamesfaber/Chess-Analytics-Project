@@ -1,12 +1,15 @@
 --- 
 title: "Chess Analytics Project"
+short_title: "Chess Analytics"
 author: "James Faber"
-date: "`r Sys.Date()`"
+date: "2025-01-20"
 site: bookdown::bookdown_site
 ---
 
 # Project Overview
 
-As an avid chess player, I’m always eager to explore new strategies and refine my skills. I play mainly on chess.com, which is the most popular chess website in the world. I usually play games against human opponents, and I like to play with the settings that each player has 10 minutes to make all their moves.
+As an avid chess player, I’m always eager to explore new strategies and refine my skills. I play mainly on chess.com, which is the most popular chess website in the world. Usually, my games are against human opponents, and I like to play with the settings that each player has 10 minutes to make all their moves.
 
 My goal for this project was to determine if I could find any insights from other players' games that could help me win more often. To do this, I needed to get a large sample of completed chess.com games, engineer features that could potentially explain why someone won their game, and lastly run a model to determine which features were significant and interpret them.
+
+![](https://jamesfaber.github.io/Testing/chess2.PNG)
