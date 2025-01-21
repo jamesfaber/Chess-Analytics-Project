@@ -1,0 +1,9 @@
+# Chess Analytics Project ♟
+
+As an avid chess player, I’m always eager to explore new strategies and refine my skills. One day, while playing on the Chess.com app, I began to wonder if I could apply statistical analysis to my gameplay history. A quick Google search revealed that Chess.com offers a public API, and in that moment, inspiration struck. I decided to channel my curiosity into a project, diving into the data to (hopefully) uncover meaningful insights and patterns.
+
+The first program I created was a search tool to collect and display game data for a single user. I developed this tool for two reasons: to determine if there were any high-level patterns in my gameplay history, and to become familiar with the API. One insight I discovered was that I generally had a higher level of success when I played the Sicilian Defense opening, however for one particular variation of that opening I lost almost all my games.
+
+The second program I created gathered a sample of 5,800 random rapid-speed chess games from the API for players around my skill level.  I wanted to see if I could find some insights in this data to help improve my own game, so I engineered features that I thought might potentially explain wins. I focused on creating features based on the opening phase of the game, such as whether a player moved their queen in the first 12 moves. A data dictionary of all the features can be found in the file "Chess_Game_Data_Final.xlsx", located in the Data folder. 
+
+The final program I created was an R program to test the significance of the features I engineered via building Logistic Regression models. The final program with output and conclusions can be viewed by downloading the file "Chess-Game-Final-Analysis.html". If you have any questions about this project, feel free to reach out to me on LinkedIn at https://www.linkedin.com/in/james~faber/.
