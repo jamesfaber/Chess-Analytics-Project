@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3 Feature Engineering | Chess Analytics Project</title>
-  <meta name="description" content="3 Feature Engineering | Chess Analytics Project" />
+  <title>2 Data Collection | Chess Analytics Project</title>
+  <meta name="description" content="2 Data Collection | Chess Analytics Project" />
   <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3 Feature Engineering | Chess Analytics Project" />
+  <meta property="og:title" content="2 Data Collection | Chess Analytics Project" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3 Feature Engineering | Chess Analytics Project" />
+  <meta name="twitter:title" content="2 Data Collection | Chess Analytics Project" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="data-collection.html"/>
-
+<link rel="prev" href="index.html"/>
+<link rel="next" href="feature-engineering.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -98,34 +98,22 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="feature-engineering" class="section level1 hasAnchor" number="3">
-<h1><span class="header-section-number">3</span> Feature Engineering<a href="feature-engineering.html#feature-engineering" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Now that we have pre-processed the sample dataset to collect basic game information, several features were engineered with the hope that at least one of them would be correlated to winning the game. For these features, I focused exclusively on the first 12 turns of the game, known as the “Opening”.</p>
-<p>The opening phase of a chess game is more structured than the later phase, as most players will have a strategy that they take a few turns to set up. There are common opening chess principles that can be evaluated, such as castling your king or controlling the center of the board.</p>
-<p>Using a series of custom python functions, I created 10 unique features for each game. I will highlight a few of them here, and the full list can be viewed in the data dictionary of the file “Chess_Game_Data_Final.xlsx”.</p>
+<div id="data-collection" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">2</span> Data Collection<a href="data-collection.html#data-collection" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Using the chess.com API, I was able to extract a random sample of 5,800 completed 10-minute chess games from players around the world.</p>
+<p>Players were chosen if their skill level was within a range of 900-1100 rating points, as my skill level was 1000. No player was represented more than one time, and no games that ended in a draw were kept because I wanted to analyze games that ended decisively.</p>
 <hr>
 <h3>
-Early Queen Move
+Example response from the chess.com API for a single game:
 </h3>
-<p>One chess principle that is instilled into new players is to avoid the temptation to move the queen in the opening. The theory states that moving the most valuable piece too early can expose it to attacks and waste time. To determine if this holds true with regard to winning the game at my skill level, I created a binary variable that relates if a player moved their queen by turn 12.</p>
-<p><br>
-<img src="https://jamesfaber.github.io/Testing/Queens.PNG" width="40%" style="display: block; margin: auto;">
-<br></p>
+<p><img src="https://jamesfaber.github.io/Testing/API_Response2.PNG" /></p>
+<p>As you can see, there is a large amount of information available for each chess game. Some data is easily accessible, however the data for each move is stored in a text string, so Regular Expressions were used to create a list of each move in algebraic notation. The code for this can be found in the file “Gathering Data &amp; Feature Engineering.ipynb”</p>
 <hr>
 <h3>
-Total Center Moves at turn 12
+Example Move List:
 </h3>
-<p>Another chess principle is to control the center of the board. For this feature, I compared the move list of each game to a list of the 16 central squares on a chess board. If a move was in the center, it was added to the total count of center moves.</p>
-<p><br>
-<img src="https://jamesfaber.github.io/Testing/Center Moves.PNG" width="40%" style="display: block; margin: auto;">
-<br></p>
-<hr>
-<h3>
-Position Evaluation at turn 12
-</h3>
-<p>The Evaluation feature represents the Stockfish chess engine’s evaluation of the board position at turn 12. To obtain this, the movement list for each game was provided to the engine within a loop so that it could “play the game” to determine the position at turn 12. Note that Stockfish is a separate program and had to be downloaded prior to analysis.</p>
-<p><br>
-<img src="https://jamesfaber.github.io/Testing/ChessGif.gif" width="75%" style="display: block; margin: auto;"></p>
+<p><img src="https://jamesfaber.github.io/Testing/Move_List2.PNG" /></p>
+<p>For data that is not stored in a text string, we can simply tell the API to provide the value. For example, if you wanted to see the chess.com rating for the player who used the white pieces, you could run the code “chess_game_1.white.rating”. Where “chess_game_1” is the API response for a single game.</p>
 
 </div>
             </section>
@@ -133,8 +121,8 @@ Position Evaluation at turn 12
           </div>
         </div>
       </div>
-<a href="data-collection.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="feature-engineering.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -165,7 +153,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jamesfaber/Testing/edit/main/Feature_Engineering.Rmd",
+"link": "https://github.com/jamesfaber/Testing/edit/main/Data_Collection.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -173,7 +161,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/jamesfaber/Testing/blob/main/Feature_Engineering.Rmd",
+"link": "https://github.com/jamesfaber/Testing/blob/main/Data_Collection.Rmd",
 "text": null
 },
 "download": null,
