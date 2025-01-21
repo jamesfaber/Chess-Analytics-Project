@@ -79,6 +79,7 @@
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Project Overview</a></li>
 <li class="chapter" data-level="2" data-path="data-collection.html"><a href="data-collection.html"><i class="fa fa-check"></i><b>2</b> Data Collection</a></li>
 <li class="chapter" data-level="3" data-path="feature-engineering.html"><a href="feature-engineering.html"><i class="fa fa-check"></i><b>3</b> Feature Engineering</a></li>
+<li class="chapter" data-level="4" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>4</b> Analysis</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -100,18 +101,17 @@
             <section class="normal" id="section-">
 <div id="data-collection" class="section level1 hasAnchor" number="2">
 <h1><span class="header-section-number">2</span> Data Collection<a href="data-collection.html#data-collection" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Using the chess.com API, I was able to extract a random sample of 5,800 completed 10-minute chess games from players around the world.</p>
-<p>Players were chosen if their skill level was within a range of 900-1100 rating points, as my skill level was 1000. No player was represented more than one time, and no games that ended in a draw were kept because I wanted to analyze games that ended decisively.</p>
+<p>Using the chess.com API, I was able to extract a random sample of 5,800 completed 10-minute chess games from players around the world. Players were chosen if their skill level was within a range of 900 - 1100 rating points, as my skill level was 1000. No player was represented more than one time, and no games that ended in a draw were kept so that only games that ended decisively were analyzed.</p>
 <hr>
 <h3>
-Example response from the chess.com API for a single game:
+Example response from the chess.com API for a single game
 </h3>
 <p><img src="https://jamesfaber.github.io/Testing/API_Response2.PNG" /></p>
-<p>As you can see, there is a large amount of information available for each chess game. Some data is easily accessible, however the data for each move is stored in a text string, so Regular Expressions were used to create a list of each move in algebraic notation. The code for this can be found in the file “Gathering Data &amp; Feature Engineering.ipynb”</p>
 <hr>
 <h3>
-Example Move List:
+Creating a Move List
 </h3>
+<p>As you can see, there is a large amount of information available for each chess game. Some data is easily accessible, however the data for each move is stored in a text string, so Regular Expressions were used to create a list of each move in algebraic notation. The code for this can be found in the file “Gathering Data &amp; Feature Engineering.ipynb”. Below is a list of the first several moves from the same game:</p>
 <p><img src="https://jamesfaber.github.io/Testing/Move_List2.PNG" /></p>
 <p>For data that is not stored in a text string, we can simply tell the API to provide the value. For example, if you wanted to see the chess.com rating for the player who used the white pieces, you could run the code “chess_game_1.white.rating”. Where “chess_game_1” is the API response for a single game.</p>
 

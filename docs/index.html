@@ -79,6 +79,7 @@
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Project Overview</a></li>
 <li class="chapter" data-level="2" data-path="data-collection.html"><a href="data-collection.html"><i class="fa fa-check"></i><b>2</b> Data Collection</a></li>
 <li class="chapter" data-level="3" data-path="feature-engineering.html"><a href="feature-engineering.html"><i class="fa fa-check"></i><b>3</b> Feature Engineering</a></li>
+<li class="chapter" data-level="4" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>4</b> Analysis</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -105,9 +106,11 @@
 </div>
 <div id="project-overview" class="section level1 hasAnchor" number="1">
 <h1><span class="header-section-number">1</span> Project Overview<a href="index.html#project-overview" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>As an avid chess player, I’m always eager to explore new strategies and refine my skills. I play mainly on chess.com, which is the most popular chess website in the world. Usually, my games are against human opponents, and I like to play with the settings that each player has 10 minutes to make all their moves.</p>
-<p>My goal for this project was to determine if I could find any insights from other players’ games that could help me win more often. To do this, I needed to get a large sample of completed chess.com games, engineer features that could potentially explain why someone won their game, and lastly run a model to determine which features were significant and interpret them.</p>
-<p><img src="https://jamesfaber.github.io/Testing/chess2.PNG" /></p>
+<p>As an avid chess player, I’m always eager to explore new strategies and refine my skills. One day while I was playing chess in between class at the Institute for Advanced Analytics, I realized that I could combine my love of the game with the statistical techniques I’ve learned to see if I could uncover hidden insights.</p>
+<p>I play chess mainly on chess.com, which is the most popular chess website in the world. Luckily, this website offers a public API which contains detailed information about every game it has ever hosted. My goal for this project was to determine if I could find any insights from other players’ games that could help me win more often. To do this, I needed to collect a large sample of completed games, engineer features that could potentially explain why someone won their game, and run a model to determine which features were significant.</p>
+<p>To avoid generalizing too much, I focused my analysis on games played between human opponents who are at or near my own skill level. I also only looked at “rapid games”, where each player has 10 minutes to make all their moves.</p>
+<p><br>
+<img src="https://jamesfaber.github.io/Testing/chess2.PNG" /></p>
 
 </div>
             </section>
